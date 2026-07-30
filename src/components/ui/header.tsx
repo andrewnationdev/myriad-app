@@ -34,7 +34,7 @@ export default function AppHeaderComponent(props: IAppHeaderProps) {
                         >
                             <option value="pt" className={props.darkMode ? 'bg-slate-800 text-white' : 'bg-white text-black'}>Português</option>
                             <option value="en" className={props.darkMode ? 'bg-slate-800 text-white' : 'bg-white text-black'}>English</option>
-                            <option value="aru" className={props.darkMode ? 'bg-slate-800 text-white' : 'bg-white text-black'}>Aru-Dem (Aru-Fna)</option>
+                            <option value="aru" className={props.darkMode ? 'bg-slate-800 text-white' : 'bg-white text-black'}>Aru-Dem (Fna-Aru)</option>
                         </select>
                         <ChevronDown className="w-3.5 h-3.5 opacity-50 absolute right-3 pointer-events-none" />
                     </div>

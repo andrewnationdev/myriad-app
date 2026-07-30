@@ -10,3 +10,16 @@ export interface IMediaItem {
   rating:number;
   notes:string;
 }
+
+export interface IMediaStore {
+  items: IMediaItem[];
+  language: string;
+  darkMode: boolean;
+  addItem: (newItem: Omit<IMediaItem, 'id'>) => void;
+  removeItem: (id: number) => void;
+  updateItem: (updatedItem: IMediaItem) => void;
+  getItemsByType: (type: TMediaType) => IMediaItem[];
+  getItemsByStatus: (status: TMediaStatus) => IMediaItem[];
+  setLanguage: (language: string) => void;
+  setDarkMode: (darkMode: boolean) => void;
+}
