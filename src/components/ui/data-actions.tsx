@@ -1,5 +1,5 @@
 import { Download, Upload } from 'lucide-react';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 interface IDataActionsProps {
   darkMode: boolean;

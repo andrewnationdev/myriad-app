@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { translations } from './schema/translation';
 import AppHeaderComponent from './components/ui/header';
 import SearchBarComponent from './components/ui/searchbar';
