@@ -10,13 +10,13 @@ import EmptyListComponent from './components/ui/empty-list';
 import MediaItemCardComponent from './components/MediaCard/media-card';
 import { useMediaForm } from './hooks/use-media-form';
 import { filterMediaItems } from './utils/filter-media-items';
-import { downloadMediaCsv } from './utils/csv';
+import { downloadMediaCsv, parseMediaCsv } from './utils/csv';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('wishlist');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { language, setLanguage, darkMode, setDarkMode, updateItem, addItem, removeItem, items } = useMediaStore();
+  const { language, setLanguage, darkMode, setDarkMode, updateItem, addItem, importItems, removeItem, items } = useMediaStore();
   const {
     isModalOpen,
     editingId,
@@ -47,6 +47,14 @@ export default function App() {
 
   const filteredItems = filterMediaItems(items, activeTab, searchTerm);
   const handleExport = () => downloadMediaCsv(items);
+  const handleImport = async (file: File) => {
+    const csvText = await file.text();
+    const importedItems = parseMediaCsv(csvText);
+
+    if (importedItems.length > 0) {
+      importItems(importedItems);
+    }
+  };
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-slate-900 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
@@ -74,6 +82,7 @@ export default function App() {
             darkMode={darkMode}
             t={t}
             onExport={handleExport}
+            onImport={handleImport}
           />
         </div>
 

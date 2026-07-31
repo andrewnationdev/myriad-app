@@ -18,6 +18,7 @@ export interface IMediaStore {
   language: TLanguage;
   darkMode: boolean;
   addItem: (newItem: Omit<IMediaItem, 'id'>) => void;
+  importItems: (newItems: Omit<IMediaItem, 'id'>[]) => void;
   removeItem: (id: number) => void;
   updateItem: (updatedItem: IMediaItem) => void;
   getItemsByType: (type: TMediaType) => IMediaItem[];
