@@ -85,7 +85,7 @@ export default function AddItemModalComponent(props: IAddItemModalProps) {
                         <label className="block text-xs font-semibold uppercase tracking-wider mb-2 opacity-70">{t.ratingLabel}</label>
                         <select
                             value={formRating}
-                            onChange={(e) => setFormRating(e.target.value)}
+                            onChange={(e) => setFormRating(Number(e.target.value))}
                             className={`w-full px-4 py-3 rounded-2xl border outline-none ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-200 text-slate-800'
                                 }`}
                         >

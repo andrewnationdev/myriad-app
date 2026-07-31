@@ -3,12 +3,14 @@ import { translations } from './schema/translation';
 import AppHeaderComponent from './components/ui/header';
 import SearchBarComponent from './components/ui/searchbar';
 import FilterComponent from './components/ui/filter';
+import DataActionsComponent from './components/ui/data-actions';
 import { useMediaStore } from './store/store';
 import AddItemModalComponent from './components/ui/add-item-modal';
 import EmptyListComponent from './components/ui/empty-list';
 import MediaItemCardComponent from './components/MediaCard/media-card';
 import { useMediaForm } from './hooks/use-media-form';
 import { filterMediaItems } from './utils/filter-media-items';
+import { downloadMediaCsv } from './utils/csv';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('wishlist');
@@ -44,6 +46,7 @@ export default function App() {
   }, [darkMode]);
 
   const filteredItems = filterMediaItems(items, activeTab, searchTerm);
+  const handleExport = () => downloadMediaCsv(items);
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-slate-900 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
@@ -58,12 +61,21 @@ export default function App() {
           onCreate={openCreate}
         />
 
-        <SearchBarComponent
-          translation={t}
-          query={searchTerm}
-          setSearchTerm={setSearchTerm}
-          darkMode={darkMode}
-        />
+        <div className="flex flex-col md:flex-row md:items-end gap-3 mb-8">
+          <SearchBarComponent
+            translation={t}
+            query={searchTerm}
+            setSearchTerm={setSearchTerm}
+            darkMode={darkMode}
+            className="flex-1"
+          />
+
+          <DataActionsComponent
+            darkMode={darkMode}
+            t={t}
+            onExport={handleExport}
+          />
+        </div>
 
         {filteredItems.length === 0 ? (
           <EmptyListComponent darkMode={darkMode} t={t} />

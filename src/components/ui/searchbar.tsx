@@ -6,10 +6,11 @@ export interface ISearchBarProps {
     translation: {};
     query: string;
     darkMode: boolean;
+    className?: string;
 }
 
 export default function SearchBarComponent(props:ISearchBarProps) {
-    return <div className="relative mb-8">
+    return <div className={`relative ${props.className ?? ''}`}>
         <Search className={`absolute left-4 top-3.5 w-5 h-5 ${props.darkMode ? 'text-slate-500' : 'text-slate-400'}`} />
         <input
             type="text"
