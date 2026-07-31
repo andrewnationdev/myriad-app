@@ -6,10 +6,7 @@ export interface IFilterProps {
     activeTab: string;
     setActiveTab: (tab:string) => void;
     darkMode: boolean;
-    setEditingId: (value: string | null) => void;
-    setFormTitle: (title: string) => void;
-    setFormNotes: (notes: string) => void;
-    setIsModalOpen: (modal: boolean) => void;
+  onCreate: () => void;
 }
 
 export default function FilterComponent(props:IFilterProps){
@@ -40,12 +37,7 @@ export default function FilterComponent(props:IFilterProps){
           </div>
 
           <button
-            onClick={() => {
-              props.setEditingId(null);
-              props.setFormTitle('');
-              props.setFormNotes('');
-              props.setIsModalOpen(true);
-            }}
+            onClick={props.onCreate}
             className="flex items-center justify-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-medium shadow-lg shadow-indigo-500/25 transition-all"
           >
             <Plus className="w-5 h-5" />

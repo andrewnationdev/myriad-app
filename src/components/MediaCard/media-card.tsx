@@ -1,25 +1,12 @@
 import { Film, BookOpen, Tv, Star, Edit2, Trash2 } from "lucide-react";
 import React from "react";
+import type { IMediaItem } from '../../schema/media';
 
 export interface IMediaCardProps {
     darkMode: boolean;
     t: Record<string, any>;
-    filteredItems: Array<{
-        id: number;
-        title: string;
-        type: string;
-        status: string;
-        rating: number;
-        notes: string;
-    }>;
-    openEdit: (item: {
-        id: number;
-        title: string;
-        type: string;
-        status: string;
-        rating: number;
-        notes: string;
-    }) => void;
+    filteredItems: IMediaItem[];
+    openEdit: (item: IMediaItem) => void;
     deleteItem: (id: number) => void;
 }
 

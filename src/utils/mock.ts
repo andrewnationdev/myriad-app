@@ -1,4 +1,4 @@
-import { IMediaItem } from "../types/media";
+import type { IMediaItem } from '../schema/media';
 
 export const mockData: IMediaItem[] = [
     { id: 1, title: 'Duna: Parte 2', type: 'movies', status: 'progress', rating: 5, notes: 'Fotografia espetacular e ritmo impecável.' },

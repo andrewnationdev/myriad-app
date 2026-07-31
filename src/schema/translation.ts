@@ -90,3 +90,5 @@ export const translations = {
     favorites: "Lu ouwas"
   }
 };
+
+export type TLanguage = keyof typeof translations;

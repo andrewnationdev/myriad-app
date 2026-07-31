@@ -1,25 +1,27 @@
-export type TMediaType = "movies" | "books" | "series";
+import type { TLanguage } from './translation';
 
-export type TMediaStatus = "wishlist" | "progress" | "completed";
+export type TMediaType = 'movies' | 'books' | 'series';
+
+export type TMediaStatus = 'wishlist' | 'progress' | 'completed';
 
 export interface IMediaItem {
-  id:number;
-  title:string;
-  type:TMediaType;
-  status:TMediaStatus;
-  rating:number;
-  notes:string;
+  id: number;
+  title: string;
+  type: TMediaType;
+  status: TMediaStatus;
+  rating: number;
+  notes: string;
 }
 
 export interface IMediaStore {
   items: IMediaItem[];
-  language: string;
+  language: TLanguage;
   darkMode: boolean;
   addItem: (newItem: Omit<IMediaItem, 'id'>) => void;
   removeItem: (id: number) => void;
   updateItem: (updatedItem: IMediaItem) => void;
   getItemsByType: (type: TMediaType) => IMediaItem[];
   getItemsByStatus: (status: TMediaStatus) => IMediaItem[];
-  setLanguage: (language: string) => void;
+  setLanguage: (language: TLanguage) => void;
   setDarkMode: (darkMode: boolean) => void;
 }

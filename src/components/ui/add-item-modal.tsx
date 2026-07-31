@@ -1,20 +1,22 @@
 import { X } from 'lucide-react';
 import React from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import type { TMediaStatus, TMediaType } from '../../schema/media';
 
 export interface IAddItemModalProps {
     darkMode: boolean;
-    setIsModalOpen: (open: boolean) => void;
+    setIsModalOpen: () => void;
     editingId: number | null;
     t: Record<string, any>;
     handleSave: (e: React.FormEvent<HTMLFormElement>) => void;
     formTitle: string;
     setFormTitle: (v: string) => void;
-    formType: string;
-    setFormType: (v: string) => void;
-    formStatus: string;
-    setFormStatus: (v: string) => void;
-    formRating: number | string;
-    setFormRating: (v: number | string) => void;
+    formType: TMediaType;
+    setFormType: Dispatch<SetStateAction<TMediaType>>;
+    formStatus: TMediaStatus;
+    setFormStatus: Dispatch<SetStateAction<TMediaStatus>>;
+    formRating: number;
+    setFormRating: Dispatch<SetStateAction<number>>;
     formNotes: string;
     setFormNotes: (v: string) => void;
 }
@@ -27,7 +29,7 @@ export default function AddItemModalComponent(props: IAddItemModalProps) {
             <div className="flex justify-between items-center mb-5">
                 <h2 className="text-xl font-bold">{editingId ? 'Editar Item' : t.addTitle}</h2>
                 <button
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={setIsModalOpen}
                     className={`p-2 rounded-xl ${darkMode ? 'hover:bg-slate-800 text-slate-400' : 'hover:bg-slate-100 text-slate-500'}`}
                 >
                     <X className="w-5 h-5" />
@@ -100,7 +102,7 @@ export default function AddItemModalComponent(props: IAddItemModalProps) {
                 <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider mb-2 opacity-70">{t.notesLabel}</label>
                     <textarea
-                        rows="3"
+                        rows={3}
                         value={formNotes}
                         onChange={(e) => setFormNotes(e.target.value)}
                         placeholder="Escreva seus comentários ou marcações estilo Markdown..."
@@ -112,7 +114,7 @@ export default function AddItemModalComponent(props: IAddItemModalProps) {
                 <div className="flex justify-end gap-3 pt-4">
                     <button
                         type="button"
-                        onClick={() => setIsModalOpen(false)}
+                        onClick={setIsModalOpen}
                         className={`px-5 py-2.5 rounded-xl font-medium transition-all ${darkMode ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
                             }`}
                     >

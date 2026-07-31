@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { IMediaStore } from '../types/media';
+import { IMediaStore } from '../schema/media';
 
 export const useMediaStore = create<IMediaStore>()(
   persist(

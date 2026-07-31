@@ -1,10 +1,11 @@
 import { Sparkles, Globe, ChevronDown, Sun, Moon } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import type { TLanguage } from "../../schema/translation";
 
 interface IAppHeaderProps {
     t: {},
-    lang: string;
-    setLang: (lang:string) => void;
+    lang: TLanguage;
+    setLang: (lang:TLanguage) => void;
     setDarkMode: (state:boolean) => void;
     darkMode: boolean;
 }
