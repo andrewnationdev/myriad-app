@@ -46,7 +46,7 @@ export default function AddItemModalComponent(props: IAddItemModalProps) {
                         onChange={(e) => setFormTitle(e.target.value)}
                         className={`w-full px-4 py-3 rounded-2xl border outline-none ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-200 text-slate-800'
                             }`}
-                        placeholder="Ex: O Senhor dos Anéis..."
+                        placeholder=""
                     />
                 </div>
 
@@ -89,7 +89,7 @@ export default function AddItemModalComponent(props: IAddItemModalProps) {
                             className={`w-full px-4 py-3 rounded-2xl border outline-none ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-200 text-slate-800'
                                 }`}
                         >
-                            <option value="0">0 - Sem Nota</option>
+                            <option value="0">0</option>
                             <option value="1">⭐ 1</option>
                             <option value="2">⭐⭐ 2</option>
                             <option value="3">⭐⭐⭐ 3</option>
@@ -105,7 +105,7 @@ export default function AddItemModalComponent(props: IAddItemModalProps) {
                         rows={3}
                         value={formNotes}
                         onChange={(e) => setFormNotes(e.target.value)}
-                        placeholder="Escreva seus comentários ou marcações estilo Markdown..."
+                        placeholder=""
                         className={`w-full px-4 py-3 rounded-2xl border outline-none font-mono text-sm ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-200 text-slate-800'
                             }`}
                     ></textarea>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { translations } from './schema/translation';
+import { translations } from './types/schema/translation';
 import AppHeaderComponent from './components/ui/header';
 import SearchBarComponent from './components/ui/searchbar';
 import FilterComponent from './components/ui/filter';
@@ -118,6 +118,7 @@ export default function App() {
           setIsModalOpen={closeModal}
         />
       )}
+
     </div>
   );
 }

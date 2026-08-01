@@ -1,6 +1,6 @@
 import { Sparkles, Globe, ChevronDown, Sun, Moon } from "lucide-react";
 import React, { useState, useEffect } from "react";
-import type { TLanguage } from "../../schema/translation";
+import type { TLanguage } from "../../types/schema/translation";
 
 interface IAppHeaderProps {
     t: {},
@@ -15,7 +15,7 @@ export default function AppHeaderComponent(props: IAppHeaderProps) {
         <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-3">
                 <div className="p-2.5 bg-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-500/30">
-                    <Sparkles className="w-6 h-6" />
+                    <img src="/favicon-32x32.png" alt="Myriad Logo" width={32} height={32} className="rounded-xl" />
                 </div>
                 <div>
                     <h1 className="text-xl font-bold tracking-tight">{props.t.appTitle}</h1>
