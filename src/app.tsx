@@ -8,6 +8,8 @@ import { useMediaStore } from './store/store';
 import AddItemModalComponent from './components/ui/add-item-modal';
 import EmptyListComponent from './components/ui/empty-list';
 import MediaItemCardComponent from './components/MediaCard/media-card';
+import FeedbackToast from './components/ui/feedback-toast';
+import ConfirmDialog from './components/ui/confirm-dialog';
 import { useMediaForm } from './hooks/use-media-form';
 import { filterMediaItems } from './utils/filter-media-items';
 import { downloadMediaCsv, parseMediaCsv } from './utils/csv';
@@ -15,6 +17,8 @@ import { downloadMediaCsv, parseMediaCsv } from './utils/csv';
 export default function App() {
   const [activeTab, setActiveTab] = useState('wishlist');
   const [searchTerm, setSearchTerm] = useState('');
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [confirmAction, setConfirmAction] = useState<{ type: 'import' | 'delete'; file?: File; itemId?: number } | null>(null);
 
   const { language, setLanguage, darkMode, setDarkMode, updateItem, addItem, importItems, removeItem, items } = useMediaStore();
   const {
@@ -46,14 +50,52 @@ export default function App() {
   }, [darkMode]);
 
   const filteredItems = filterMediaItems(items, activeTab, searchTerm);
-  const handleExport = () => downloadMediaCsv(items);
-  const handleImport = async (file: File) => {
-    const csvText = await file.text();
-    const importedItems = parseMediaCsv(csvText);
+  const handleExport = () => {
+    downloadMediaCsv(items);
+    setToast({ message: 'Exportação iniciada com sucesso!', type: 'success' });
+  };
 
-    if (importedItems.length > 0) {
-      importItems(importedItems);
+  const handleImport = async (file: File) => {
+    try {
+      const csvText = await file.text();
+      const importedItems = parseMediaCsv(csvText);
+
+      if (importedItems.length > 0) {
+        importItems(importedItems);
+        setToast({ message: `${importedItems.length} item${importedItems.length > 1 ? 's' : ''} importado${importedItems.length > 1 ? 's' : ''} com sucesso!`, type: 'success' });
+      } else {
+        setToast({ message: 'Nenhum item válido foi encontrado no CSV.', type: 'error' });
+      }
+    } catch {
+      setToast({ message: 'Falha ao importar o arquivo. Verifique o formato do CSV.', type: 'error' });
     }
+  };
+
+  const requestImportConfirmation = (file: File) => {
+    setConfirmAction({ type: 'import', file });
+  };
+
+  const requestDeleteConfirmation = (id: number) => {
+    setConfirmAction({ type: 'delete', itemId: id });
+  };
+
+  const confirmActionHandler = async () => {
+    if (!confirmAction) return;
+
+    if (confirmAction.type === 'import' && confirmAction.file) {
+      await handleImport(confirmAction.file);
+    }
+
+    if (confirmAction.type === 'delete' && confirmAction.itemId !== undefined) {
+      removeItem(confirmAction.itemId);
+      setToast({ message: 'Item removido com sucesso!', type: 'success' });
+    }
+
+    setConfirmAction(null);
+  };
+
+  const cancelActionHandler = () => {
+    setConfirmAction(null);
   };
 
   return (
@@ -82,7 +124,7 @@ export default function App() {
             darkMode={darkMode}
             t={t}
             onExport={handleExport}
-            onImport={handleImport}
+            onImport={requestImportConfirmation}
           />
         </div>
 
@@ -94,7 +136,7 @@ export default function App() {
             t={t}
             filteredItems={filteredItems}
             openEdit={openEdit}
-            deleteItem={removeItem}
+            deleteItem={requestDeleteConfirmation}
           />
         )}
       </main>
@@ -119,6 +161,25 @@ export default function App() {
         />
       )}
 
+      {confirmAction && (
+        <ConfirmDialog
+          title={confirmAction.type === 'import' ? 'Importar conteúdo?' : 'Excluir item?'}
+          message={confirmAction.type === 'import'
+            ? 'Essa ação adicionará os itens do CSV à sua lista atual. Deseja continuar?'
+            : 'Essa ação removerá o item da sua lista. Deseja continuar?'}
+          onConfirm={confirmActionHandler}
+          onCancel={cancelActionHandler}
+          darkMode={darkMode}
+        />
+      )}
+
+      {toast && (
+        <FeedbackToast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }
