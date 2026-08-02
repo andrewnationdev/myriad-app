@@ -125,7 +125,7 @@ export const translations = {
     toastImportSuccessMany: "! Vreyek sa {count} u bauwayeis sasa to !",
     toastImportErrorEmpty: "Vej sa vreyek vraais wei payr CSV.",
     toastImportErrorFailed: "Fai-lai bauwayeis u naraais. Marei neyauwr keyo sa CSV.",
-    toastDeleteSuccess: "! Vreyek duwaais sasa to "",
+    toastDeleteSuccess: "! Vreyek duwaais sasa to !",
     wishlistTab: "Tlaai",
     progressTab: "Paai",
     finishedTab: "Gaai",
