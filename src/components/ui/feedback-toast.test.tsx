@@ -5,7 +5,7 @@ describe('FeedbackToast', () => {
   it('renders the message and calls onClose when dismissed', () => {
     const onClose = vi.fn();
 
-    render(<FeedbackToast message="Item removido" type="success" onClose={onClose} />);
+    render(<FeedbackToast message="Item removido" type="success" onClose={onClose} closeLabel="Fechar" />);
 
     expect(screen.getByText('Item removido')).toBeTruthy();
 

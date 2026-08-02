@@ -4,9 +4,10 @@ interface IFeedbackToastProps {
   message: string;
   type: 'success' | 'error';
   onClose: () => void;
+  closeLabel: string;
 }
 
-export default function FeedbackToast({ message, type, onClose }: IFeedbackToastProps) {
+export default function FeedbackToast({ message, type, onClose, closeLabel }: IFeedbackToastProps) {
   const isSuccess = type === 'success';
 
   return (
@@ -24,7 +25,7 @@ export default function FeedbackToast({ message, type, onClose }: IFeedbackToast
       <button
         type="button"
         onClick={onClose}
-        aria-label="Fechar"
+        aria-label={closeLabel}
         className="ml-auto rounded-full p-1 transition hover:bg-black/5"
       >
         <X className="h-4 w-4" />

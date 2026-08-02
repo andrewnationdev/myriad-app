@@ -27,7 +27,7 @@ export default function AddItemModalComponent(props: IAddItemModalProps) {
     return <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm">
         <div className={`w-full max-w-lg p-6 rounded-3xl border shadow-2xl ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
             <div className="flex justify-between items-center mb-5">
-                <h2 className="text-xl font-bold">{editingId ? 'Editar Item' : t.addTitle}</h2>
+                <h2 className="text-xl font-bold">{editingId ? t.editTitle : t.addTitle}</h2>
                 <button
                     onClick={setIsModalOpen}
                     className={`p-2 rounded-xl ${darkMode ? 'hover:bg-slate-800 text-slate-400' : 'hover:bg-slate-100 text-slate-500'}`}

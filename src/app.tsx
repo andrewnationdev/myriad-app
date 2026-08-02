@@ -52,7 +52,7 @@ export default function App() {
   const filteredItems = filterMediaItems(items, activeTab, searchTerm);
   const handleExport = () => {
     downloadMediaCsv(items);
-    setToast({ message: 'Exportação iniciada com sucesso!', type: 'success' });
+    setToast({ message: t.toastExportSuccess, type: 'success' });
   };
 
   const handleImport = async (file: File) => {
@@ -62,12 +62,18 @@ export default function App() {
 
       if (importedItems.length > 0) {
         importItems(importedItems);
-        setToast({ message: `${importedItems.length} item${importedItems.length > 1 ? 's' : ''} importado${importedItems.length > 1 ? 's' : ''} com sucesso!`, type: 'success' });
+        setToast({
+          message:
+            importedItems.length === 1
+              ? t.toastImportSuccessOne
+              : t.toastImportSuccessMany.replace('{count}', String(importedItems.length)),
+          type: 'success',
+        });
       } else {
-        setToast({ message: 'Nenhum item válido foi encontrado no CSV.', type: 'error' });
+        setToast({ message: t.toastImportErrorEmpty, type: 'error' });
       }
     } catch {
-      setToast({ message: 'Falha ao importar o arquivo. Verifique o formato do CSV.', type: 'error' });
+      setToast({ message: t.toastImportErrorFailed, type: 'error' });
     }
   };
 
@@ -88,7 +94,7 @@ export default function App() {
 
     if (confirmAction.type === 'delete' && confirmAction.itemId !== undefined) {
       removeItem(confirmAction.itemId);
-      setToast({ message: 'Item removido com sucesso!', type: 'success' });
+      setToast({ message: t.toastDeleteSuccess, type: 'success' });
     }
 
     setConfirmAction(null);
@@ -163,12 +169,12 @@ export default function App() {
 
       {confirmAction && (
         <ConfirmDialog
-          title={confirmAction.type === 'import' ? 'Importar conteúdo?' : 'Excluir item?'}
-          message={confirmAction.type === 'import'
-            ? 'Essa ação adicionará os itens do CSV à sua lista atual. Deseja continuar?'
-            : 'Essa ação removerá o item da sua lista. Deseja continuar?'}
+          title={confirmAction.type === 'import' ? t.confirmImportTitle : t.confirmDeleteTitle}
+          message={confirmAction.type === 'import' ? t.confirmImportMessage : t.confirmDeleteMessage}
           onConfirm={confirmActionHandler}
           onCancel={cancelActionHandler}
+          confirmLabel={t.confirm}
+          cancelLabel={t.cancel}
           darkMode={darkMode}
         />
       )}
@@ -178,6 +184,7 @@ export default function App() {
           message={toast.message}
           type={toast.type}
           onClose={() => setToast(null)}
+          closeLabel={t.close}
         />
       )}
     </div>
